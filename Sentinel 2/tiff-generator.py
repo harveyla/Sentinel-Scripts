@@ -8,6 +8,8 @@ import time
 import readline, glob
 from pathlib import Path
 
+# python3 tiff-generator.py
+
 def complete(text, state):
     return (glob.glob(text+'*')+[None])[state]
 
