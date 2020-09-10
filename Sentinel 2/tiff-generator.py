@@ -1,14 +1,17 @@
 import sys
 import subprocess
-sys.path.append('Scripts/')
-import gdal_merge
+#sys.path.append('Scripts/')
+import Scripts.gdal_merge as gdal_merge
 import zipfile
 import os
 import time
-import readline, glob
+from pyreadline import Readline
+import glob
 from pathlib import Path
 
-# python3 tiff-generator.py
+os.environ['PROJ_LIB'] += '\proj'
+
+readline = Readline()
 
 def complete(text, state):
     return (glob.glob(text+'*')+[None])[state]
@@ -133,11 +136,13 @@ def generate_all_bands(unprocessedBandPath, granule, outputPathSubdirectory):
 
     return(outPutFullPath)
 
-outputPath = '../Output/'
+#outputPath = '../Output/'
 readline.set_completer_delims(' \t\n;')
 readline.parse_and_bind("tab: complete")
 readline.set_completer(complete)
-inputPath = input("Input Path? ")
+inputPath = sys.argv[1]
+outputPath = sys.argv[2]
+# inputPath = input("Input Path? ")
 
 start_time = time.time()
 
